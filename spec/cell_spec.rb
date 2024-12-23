@@ -21,6 +21,7 @@ RSpec.describe Cell do
     it 'defaults to nil' do
       expect(@cell.ship).to eq(nil)
     end
+  end
 
   describe '#place_ship' do 
     it 'places a ship in a cell' do
@@ -45,5 +46,15 @@ RSpec.describe Cell do
       @cell.place_ship(@cruiser)
       expect(@cell.fired_upon?).to eq(false)
     end 
+  end
+
+  describe '#fire_upon' do 
+    it 'decreases ships health when invoked, and updates fired_upon to true' do 
+      @cell.place_ship(@cruiser)
+      @cell.fire_upon
+
+      expect(@cell.ship.health).to eq(2)
+      expect(@cell.fired_upon?).to eq(true)
+    end
   end
 end
