@@ -22,7 +22,8 @@ RSpec.describe Cell do
       expect(@cell.ship).to eq(nil)
     end
 
-    it 'reads ship object after place_ship' do
+  describe '#place_ship' do 
+    it 'places a ship in a cell' do
       @cell.place_ship(@cruiser)
       expect(@cell.ship).to eq(@cruiser)
     end
