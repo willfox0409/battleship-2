@@ -67,25 +67,25 @@ RSpec.describe Cell do
       expect(@cell_2.render).to eq(".")
     end
 
-    it 'Empty cell switches to "M" once being fired upon' do
+    it 'switches empty cell to "M" once being fired upon' do
       @cell_1.fire_upon
       expect(@cell_1.render).to eq("M")
     end
 
 
-    it 'Accepts optional boolean arguement, returning "S" for cells with ships yet to be fired upon' do
+    it 'accepts optional boolean argument and returns "S" for cells with ships yet to be fired upon' do
       @cell_2.place_ship(@cruiser)
       expect(@cell_2.render(true)).to eq("S")
     end
 
-    it 'Cell with ship returns "H" once being fired upon' do
+    it 'returns "H" when fired upon and not empty' do
       @cell_2.place_ship(@cruiser)
       @cell_2.fire_upon
       expect(@cruiser.sunk?).to eq(false)
       expect(@cell_2.render).to eq("H")
     end
 
-    it 'fired upon returns “X” only when ship is sunk' do
+    it 'returns “X” only when ship is sunk' do
       @cell_2.place_ship(@cruiser)
       expect(@cell_2.render(true)).to eq("S")
       @cell_2.fire_upon
