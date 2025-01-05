@@ -33,4 +33,11 @@ RSpec.describe Board do
             expect(@board.valid_coordinate?("A22")).to eq(false)  
         end
     end
+
+    describe '#valid_length?' do 
+        it 'determines if a specific ship has been placed correctly on the board based on length' do 
+            expect(@board.valid_length?(@cruiser, ["A1", "A2"])).to eq(false)
+            expect(@board.valid_length?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+        end
+    end
 end
