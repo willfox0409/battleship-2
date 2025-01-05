@@ -45,7 +45,7 @@ RSpec.describe Board do
             expect(@cell_2.ship).to eq(@cruiser)
             expect(@cell_3.ship).to eq(@cruiser)
 
-            expect(@cell_1.ship == @cell_2.ship).to be(true)
+            expect(@cell_1.ship == @cell_2.ship).to eq(true)
         end
     end
 
@@ -57,13 +57,21 @@ RSpec.describe Board do
     end
 
         #write another test for only one cell being occupied and still returning false?
-    describe 'empty_cells?' do 
+    describe '#empty_cells?' do 
         it 'returns false if cells are occupied and true for empty cells' do 
             expect(@board.empty_cells?(["A1", "A2", "A3"])).to eq(true)
 
             @board.place(@cruiser, ["A1", "A2", "A3"])
 
             expect(@board.empty_cells?(["A1", "A2", "A3"])).to eq(false)
+        end
+    end
+
+    describe '#horizontal?' do 
+        it 'verifies a valid horizontal placement' do 
+            @board.place(@cruiser, ["A1", "B1", "A2"])
+
+            expect(@board.horizontal?(["A1", "B1", "A2"])).to eq(false)
         end
     end
 end
