@@ -56,9 +56,14 @@ RSpec.describe Board do
         end
     end
 
+        #write another test for only one cell being occupied and still returning false?
     describe 'empty_cells?' do 
-        xit 'determines if the chosen cells are initially empty' do 
-            
+        it 'returns false if cells are occupied and true for empty cells' do 
+            expect(@board.empty_cells?(["A1", "A2", "A3"])).to eq(true)
+
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+
+            expect(@board.empty_cells?(["A1", "A2", "A3"])).to eq(false)
         end
     end
 end
