@@ -41,4 +41,15 @@ class Board
             @cells[coordinate].empty?
         end
     end
+
+    def horizontal?(coordinates) 
+        same_letter = coordinates.each_cons(2).all? do |coordinate_1, coordinate_2| 
+            coordinate_1[0] == coordinate_2[0]
+        end
+
+        consecutive_numbers = coordinates.each_cons(2).all? do |coordinate_1, coordinate_2|
+            coordinate_1[1].to_i == coordinate_2[1].to_i + 1 
+        end
+
+    end
 end
