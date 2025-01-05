@@ -7,6 +7,9 @@ RSpec.describe Board do
         @board = Board.new
         @cruiser = Ship.new("Cruiser", 3)
         @submarine = Ship.new("Submarine", 2)
+        @cell_1 = @board.cells["A1"]
+        @cell_2 = @board.cells["A2"]
+        @cell_3 = @board.cells["A3"]
     end
 
     describe '#initialize' do 
@@ -34,10 +37,28 @@ RSpec.describe Board do
         end
     end
 
+    describe '#place' do 
+        it 'tracks which cells the board is placed on' do 
+            @board.place(@cruiser, ["A1", "A2", "A3"])
+
+            expect(@cell_1.ship).to eq(@cruiser)
+            expect(@cell_2.ship).to eq(@cruiser)
+            expect(@cell_3.ship).to eq(@cruiser)
+
+            expect(@cell_1.ship == @cell_2.ship).to be(true)
+        end
+    end
+
     describe '#valid_length?' do 
         it 'determines if a specific ship has been placed correctly on the board based on length' do 
             expect(@board.valid_length?(@cruiser, ["A1", "A2"])).to eq(false)
             expect(@board.valid_length?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+        end
+    end
+
+    describe 'empty_cells?' do 
+        xit 'determines if the chosen cells are initially empty' do 
+            
         end
     end
 end
