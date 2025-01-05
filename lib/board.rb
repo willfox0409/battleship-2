@@ -26,7 +26,19 @@ class Board
         @cells.has_key?(coordinate)
     end
 
+    def place(ship, coordinates)
+        coordinates.each do |coordinate|
+            @cells[coordinate].place_ship(ship)
+        end
+    end
+
     def valid_length?(ship, coordinates)
         ship.length == coordinates.count
+    end
+
+    def empty_cells?(coordinates)
+        coordinates.all? do |coordinate|
+            @cells[coordinate].empty?
+        end
     end
 end
