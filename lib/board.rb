@@ -65,4 +65,10 @@ class Board
 
         same_number && consecutive_letters
     end
+
+    def valid_placement?(ship, coordinates) 
+        empty_cells?(coordinates) &&
+        valid_length?(ship, coordinates) &&
+        (horizontal?(coordinates) || vertical?(coordinates))
+    end
 end
