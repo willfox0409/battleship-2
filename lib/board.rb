@@ -48,8 +48,21 @@ class Board
         end
 
         consecutive_numbers = coordinates.each_cons(2).all? do |coordinate_1, coordinate_2|
-            coordinate_1[1].to_i == coordinate_2[1].to_i + 1 
+            coordinate_1[1].to_i == coordinate_2[1].to_i - 1 
         end
 
+        same_letter && consecutive_numbers
+    end
+
+    def vertical?(coordinates)
+        same_number = coordinates.each_cons(2).all? do |coordinate_1, coordinate_2|
+            coordinate_1[1] == coordinate_2[1]
+        end
+
+        consecutive_letters = coordinates.each_cons(2).all? do |coordinate_1, coordinate_2|
+            coordinate_1[0].ord == coordinate_2[0].ord - 1
+        end
+
+        same_number && consecutive_letters
     end
 end
