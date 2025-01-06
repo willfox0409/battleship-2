@@ -56,7 +56,6 @@ RSpec.describe Board do
         end
     end
 
-        #write another test for only one cell being occupied and still returning false?
     describe '#empty_cells?' do 
         it 'returns false if cells are occupied and true for empty cells' do 
             expect(@board.empty_cells?(["A1", "A2", "A3"])).to eq(true)
@@ -78,6 +77,20 @@ RSpec.describe Board do
         it 'verifies a consecutive vertical placement' do 
             expect(@board.vertical?(["A1", "B1", "A2"])).to eq(false)
             expect(@board.vertical?(["A1", "B1", "C1"])).to eq(true)
+        end
+    end
+
+    describe '#valid_placement?' do 
+        it 'returns false if a ship has been placed horizontally' do 
+            @board.place(@cruiser, ["A1", "B2", "C3"])
+
+            expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+        end
+
+        it 'returns false if ships are overlapping' do 
+            @board.place(@cruiser, ["A1", "B2", "C3"])
+
+            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
         end
     end
 end
