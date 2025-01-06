@@ -68,10 +68,16 @@ RSpec.describe Board do
     end
 
     describe '#horizontal?' do 
-        it 'verifies a valid horizontal placement' do 
-            @board.place(@cruiser, ["A1", "B1", "A2"])
-
+        it 'verifies a consecutive horizontal placement' do 
             expect(@board.horizontal?(["A1", "B1", "A2"])).to eq(false)
+            expect(@board.horizontal?(["A1", "A2", "A3"])).to eq(true)
+        end
+    end
+
+    describe '#vertical?' do 
+        it 'verifies a consecutive vertical placement' do 
+            expect(@board.vertical?(["A1", "B1", "A2"])).to eq(false)
+            expect(@board.vertical?(["A1", "B1", "C1"])).to eq(true)
         end
     end
 end
