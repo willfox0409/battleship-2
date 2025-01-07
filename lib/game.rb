@@ -1,5 +1,5 @@
 class Game 
-  attr_reader :computer_board, :player_board
+  attr_reader :computer_board, :player_board, :computer_cruiser, :computer_submarine, :player_cruiser, :player_submarine
 
   def initialize
     @computer_board = Board.new
