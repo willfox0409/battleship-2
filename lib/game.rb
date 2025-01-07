@@ -32,5 +32,17 @@ class Game
     @player_board.place(@player_cruiser, cruiser_coordinates.split(" "))
   end
 
-
+  def player_submarine_setup
+    puts @player_board.render(true)
+    puts "Enter the squares for the Submarine (3 spaces):"
+    
+    submarine_coordinates = gets.chomp
+    while @player_board.valid_placement?(@player_submarine, submarine_coordinates.split(" ")) == false
+      puts "Those are invalid coordinates. Please try again:"
+      submarine_coordinates = gets.chomp 
+      @player_board.valid_placement?(submarine_coordinates.split(" "))
+    end
+    @player_board.place(@player_submarine, submarine_coordinates.split(" "))
+    puts @player_board.render(true)
+  end
 end
