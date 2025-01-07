@@ -26,7 +26,12 @@ class Game
   end
 
   def computer_cruiser_setup
-
+    cruiser_coordinates = @computer_board.cells.keys.sample(3)
+    while @computer_board.valid_placement?(@computer_cruiser, cruiser_coordinates) == false
+      cruiser_coordinates
+      @computer_board.valid_placement?(@computer_cruiser, cruiser_coordinates)
+    end
+    @computer_board.place(@computer_cruiser, cruiser_coordinates)
   end
 
   def computer_submarine_setup
