@@ -11,7 +11,17 @@ class Game
   end
 
   def main_menu
-    
+    puts "Welcome to BATTLESHIP \n" + "Enter p to play. Enter q to quit. \n" + ">"
+    user_input = gets.downcase.chomp
+    if user_input == "p"
+      computer_setup
+    elsif user_input == "q"
+      puts ""
+      exits
+    else
+      puts "Incorrect entry, please try again. \n" + ">"
+      user_input
+    end
   end
 
   def computer_setup
