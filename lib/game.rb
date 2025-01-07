@@ -14,9 +14,10 @@ class Game
     puts "Welcome to BATTLESHIP \n" + "Enter p to play. Enter q to quit. \n" + ">"
     user_input = gets.downcase.chomp
     if user_input == "p"
-      computer_setup
+      computer_cruiser_setup
+      computer_submarine_setup
     elsif user_input == "q"
-      puts ""
+      puts "Please return again when you wish to play. \n" + "Goodbye for now!"
       exits
     else
       puts "Incorrect entry, please try again. \n" + ">"
@@ -24,8 +25,12 @@ class Game
     end
   end
 
-  def computer_setup
-    
+  def computer_cruiser_setup
+
+  end
+
+  def computer_submarine_setup
+
   end
 
   def player_cruiser_setup
