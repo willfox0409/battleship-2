@@ -67,6 +67,12 @@ class Board
     end
 
     def valid_placement?(ship, coordinates) 
+        unless coordinates.all? do |coordinate|
+                valid_coordinate?(coordinate)
+            end 
+            return false
+        end
+        
         empty_cells?(coordinates) &&
         valid_length?(ship, coordinates) &&
         (horizontal?(coordinates) || vertical?(coordinates))
