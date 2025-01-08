@@ -3,11 +3,13 @@ require './lib/cell'
 require './lib/board'
 require './lib/game'
 
-puts "Welcome to BATTLESHIP \n"
+puts "Welcome to BATTLESHIP "
 puts ""
-puts "Enter p to play. Enter q to quit. \n>"
+puts "Enter p to play. Enter q to quit."
+puts ""
 
 player_input = gets.chomp.downcase
+puts ""
 
 case player_input
 when "p"
@@ -32,4 +34,5 @@ when "q"
     exit
 else
     puts "Incorrect entry, please restart the game."
+    puts ""
 end
