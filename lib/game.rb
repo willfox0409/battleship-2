@@ -96,4 +96,14 @@ class Game
     @computer_board.fire_upon(player_shot)
   end
 
+  def computer_turn
+    computer_shot = @player_board.cells.keys.sample
+    while @player_board.valid_coordinate?(computer_shot) == false || @player_board.cells[computer_shot].fired_upon? == true
+      computer_shot = @player_board.cells.keys.sample
+      @player_board.valid_coordinate?(computer_shot)
+      @player_board.cells[computer_shot].fired_upon?
+    end
+    @player_board.fire_upon(computer_shot)
+  end
+
 end
