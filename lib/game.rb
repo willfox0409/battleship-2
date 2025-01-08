@@ -105,5 +105,12 @@ class Game
     end
     @player_board.fire_upon(computer_shot)
   end
-
+  
+  def game_over
+    if @player_cruiser.sunk? && @player_submarine.sunk?
+      puts "I won!"
+    elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+      puts "You won!"
+    end
+  end
 end
