@@ -28,7 +28,7 @@ class Game
   def computer_cruiser_setup
     cruiser_coordinates = @computer_board.cells.keys.sample(3)
     while @computer_board.valid_placement?(@computer_cruiser, cruiser_coordinates) == false
-      cruiser_coordinates
+      cruiser_coordinates = @computer_board.cells.keys.sample(3)
       @computer_board.valid_placement?(@computer_cruiser, cruiser_coordinates)
     end
     @computer_board.place(@computer_cruiser, cruiser_coordinates)
@@ -37,7 +37,7 @@ class Game
   def computer_submarine_setup
     submarine_coordinates = @computer_board.cells.keys.sample(2)
     while @computer_board.valid_placement?(@computer_submarine, submarine_coordinates) == false
-      submarine_coordinates
+      submarine_coordinates = @computer_board.cells.keys.sample(2)
       @computer_board.valid_placement?(@computer_submarine, submarine_coordinates)
     end
     @computer_board.place(@computer_submarine, submarine_coordinates)
@@ -48,10 +48,10 @@ class Game
     puts @player_board.render(true)
     puts "Enter the squares for the Cruiser (3 spaces):"
     
-    cruiser_coordinates = gets.chomp
+    cruiser_coordinates = gets.chomp.upcase
     while @player_board.valid_placement?(@player_cruiser, cruiser_coordinates.split(" ")) == false
       puts "Those are invalid coordinates. Please try again:"
-      cruiser_coordinates = gets.chomp #just cruiser_coordinates work?
+      cruiser_coordinates = gets.chomp.upcase #just cruiser_coordinates work?
       @player_board.valid_placement?(cruiser_coordinates.split(" "))
     end
     @player_board.place(@player_cruiser, cruiser_coordinates.split(" "))
@@ -61,13 +61,56 @@ class Game
     puts @player_board.render(true)
     puts "Enter the squares for the Submarine (3 spaces):"
     
-    submarine_coordinates = gets.chomp
+    submarine_coordinates = gets.chomp.upcase
     while @player_board.valid_placement?(@player_submarine, submarine_coordinates.split(" ")) == false
       puts "Those are invalid coordinates. Please try again:"
-      submarine_coordinates = gets.chomp 
+      submarine_coordinates = gets.chomp.upcase 
       @player_board.valid_placement?(submarine_coordinates.split(" "))
     end
     @player_board.place(@player_submarine, submarine_coordinates.split(" "))
     puts @player_board.render(true)
+  end
+
+  def display_boards
+    puts "=" * 13 + "COMPUTER BOARD" + "=" * 13
+    puts @computer_board.render
+    puts "=" * 13 + "PLAYER BOARD" + "=" * 13
+    puts @player_board.render(true)
+  end
+
+  def player_turn
+    display_boards
+    player_shot = gets.chomp.upcase
+
+    while @computer_board.valid_coordinate?(player_shot) == false
+      puts "Please enter a valid coordinate:"
+      player_shot = gets.chomp.upcase
+      @computer_board.valid_coordinate?(player_shot)
+    end
+
+    while @computer_board.cells[player_shot].fired_upon? == true
+      puts "This cell has already been fired on, please choose another coordinate. \n" + ">"
+      player_shot = gets.chomp.upcase
+      @computer_board.cells[player_shot].fired_upon?
+    end
+    @computer_board.fire_upon(player_shot)
+  end
+
+  def computer_turn
+    computer_shot = @player_board.cells.keys.sample
+    while @player_board.valid_coordinate?(computer_shot) == false || @player_board.cells[computer_shot].fired_upon? == true
+      computer_shot = @player_board.cells.keys.sample
+      @player_board.valid_coordinate?(computer_shot)
+      @player_board.cells[computer_shot].fired_upon?
+    end
+    @player_board.fire_upon(computer_shot)
+  end
+  
+  def game_over
+    if @player_cruiser.sunk? && @player_submarine.sunk?
+      puts "I won!"
+    elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
+      puts "You won!"
+    end
   end
 end
