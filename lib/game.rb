@@ -38,10 +38,11 @@ class Game
     puts ""
     cruiser_coordinates = gets.chomp.upcase
     puts ""
-    while @player_board.valid_placement?(@player_cruiser, cruiser_coordinates.split(" ")) == false
+    while @player_board.valid_placement?(@player_cruiser, cruiser_coordinates.split(" ")) == false 
       puts "Those are invalid coordinates. Please try again:"
+      puts ""
       cruiser_coordinates = gets.chomp.upcase 
-      @player_board.valid_placement?(cruiser_coordinates.split(" "))
+      @player_board.valid_placement?(@player_cruiser, cruiser_coordinates.split(" "))
     end
     @player_board.place(@player_cruiser, cruiser_coordinates.split(" "))
   end
@@ -58,7 +59,8 @@ class Game
       puts "Those are invalid coordinates. Please try again:"
       puts ""
       submarine_coordinates = gets.chomp.upcase 
-      @player_board.valid_placement?(submarine_coordinates.split(" "))
+      puts ""
+      @player_board.valid_placement?(@player_submarine, submarine_coordinates.split(" "))
     end
     @player_board.place(@player_submarine, submarine_coordinates.split(" "))
     puts @player_board.render(true)
@@ -80,17 +82,20 @@ class Game
     display_boards
     puts ""
     puts "Enter the coordinate for your shot:"
+    puts ""
     player_shot = gets.chomp.upcase
     puts ""
   
-    while @computer_board.valid_coordinate?(player_shot) == false || @computer_board.cells[player_shot].fired_upon?
+    until @computer_board.valid_coordinate?(player_shot) && !@computer_board.cells[player_shot].fired_upon?
       if @computer_board.valid_coordinate?(player_shot) == false
         puts "Invalid coordinate. Please try again:"
         puts ""
       elsif @computer_board.cells[player_shot].fired_upon?
         puts "You've already fired at this cell. Choose another coordinate:"
+        puts ""
       end
       player_shot = gets.chomp.upcase
+      puts ""
     end
   
     @computer_board.cells[player_shot].fire_upon
@@ -131,9 +136,11 @@ class Game
   def game_over
     if @player_cruiser.sunk? && @player_submarine.sunk?
       puts "I won!"
+      puts ""
       return true
     elsif @computer_cruiser.sunk? && @computer_submarine.sunk?
       puts "You won!"
+      puts ""
       return true
     else
       return false
