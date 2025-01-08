@@ -78,4 +78,22 @@ class Game
     puts @player_board.render(true)
   end
 
+  def player_turn
+    display_boards
+    player_shot = gets.chomp.upcase
+
+    while @computer_board.valid_coordinate?(player_shot) == false
+      puts "Please enter a valid coordinate:"
+      player_shot = gets.chomp.upcase
+      @computer_board.valid_coordinate?(player_shot)
+    end
+
+    while @computer_board.cells[player_shot].fired_upon? == true
+      puts "This cell has already been fired on, please choose another coordinate. \n" + ">"
+      player_shot = gets.chomp.upcase
+      @computer_board.cells[player_shot].fired_upon?
+    end
+    @computer_board.fire_upon(player_shot)
+  end
+
 end
